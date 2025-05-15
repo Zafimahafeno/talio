@@ -1,0 +1,305 @@
+[2025-05-04 21:42:55] Le script s'est lancé
+Robot redémarré (gain 1736)
+Ordre envoyé : BUY
+[2025-05-04 21:50:44] Le script s'est lancé
+Erreur lors de l'envoi de l'ordre BUY
+[2025-05-04 22:16:02] Le script s'est lancé
+[2025-05-04 22:32:02] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.131,"bid":1.1308799999999999,"comment":"Request executed","deal":3674093934,"order":3724217083,"price":1.131,"request":[1,123456,0,"EURUSD",0.1,1.131,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369013,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-04 22:52:31] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13134,"bid":1.1312,"comment":"Request executed","deal":3674151033,"order":3724276047,"price":1.13134,"request":[1,123456,0,"EURUSD",0.1,1.13134,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369017,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-04 23:01:56] Le script s'est lancé
+Ordre envoyé : BUY
+[2025-05-04 23:03:56] Le script s'est lancé
+Ordre envoyé : BUY
+[2025-05-04 23:05:56] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"details":{"ask":1.1305,"bid":1.13038,"comment":"Request executed","deal":3674187855,"order":3724313959,"price":1.1305,"request":[1,234000,0,"EURUSD",0.1,1.1305,0.0,0.0,0.0,10,0,1,0,0,"Python script open",0,0],"request_id":2193369020,"retcode":10009,"retcode_external":0,"volume":0.1},"message":"Trade executed"}
+
+[2025-05-04 23:15:39] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13048,"bid":1.13032,"comment":"Request executed","deal":3674216132,"order":3724343007,"price":1.13048,"request":[1,123456,0,"EURUSD",0.1,1.13048,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369022,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-04 23:17:58] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13067,"bid":1.1305399999999999,"comment":"Request executed","deal":3674220690,"order":3724347753,"price":1.13067,"request":[1,123456,0,"EURUSD",0.1,1.13067,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369023,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-04 23:23:29] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.1312,"bid":1.13107,"comment":"Request executed","deal":3674234199,"order":3724361773,"price":1.1312,"request":[1,123456,0,"EURUSD",0.1,1.1312,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369024,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-04 23:30:50] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13121,"bid":1.13108,"comment":"Request executed","deal":3674252054,"order":3724380283,"price":1.13121,"request":[1,123456,0,"EURUSD",0.1,1.13121,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369025,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-04 23:43:59] Le script s'est lancé
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13212,"bid":1.1320000000000001,"comment":"Request executed","deal":3674296407,"order":3724425418,"price":1.13212,"request":[1,123456,0,"EURUSD",0.1,1.13212,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369026,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-05 00:04:59] Le script s'est lancé
+[2025-05-05 00:05:01] Solde actuel depuis Flask : 3000
+[2025-05-05 00:05:02] Solde précédent : 3000.00, Solde actuel : 3000, Variation : 0
+[2025-05-05 00:05:02] Mise à jour du solde réussi
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13195,"bid":1.13183,"comment":"Request executed","deal":3674364390,"order":3724494402,"price":1.13195,"request":[1,123456,0,"EURUSD",0.1,1.13195,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369027,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-05 00:05:15] Le script s'est lancé
+[2025-05-05 00:05:16] Solde actuel depuis Flask : 3000
+[2025-05-05 00:05:16] Solde précédent : 3000.00, Solde actuel : 3000, Variation : 0
+[2025-05-05 00:05:17] Mise à jour du solde réussi
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13199,"bid":1.13186,"comment":"Request executed","deal":3674364957,"order":3724494992,"price":1.13199,"request":[1,123456,0,"EURUSD",0.1,1.13199,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369028,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-05 00:07:34] Le script s'est lancé
+[2025-05-05 00:07:34] Solde actuel depuis Flask : 3000
+[2025-05-05 00:07:35] Solde précédent : 3000.00, Solde actuel : 3000, Variation : 0
+[2025-05-05 00:07:35] Mise à jour du solde réussi
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.13181,"bid":1.13168,"comment":"Request executed","deal":3674370898,"order":3724501077,"price":1.1318,"request":[1,123456,0,"EURUSD",0.1,1.1318,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":2193369029,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-06 15:29:15] Le script s'est lancé
+[2025-05-08 21:24:00] Le script s'est lancé
+[2025-05-08 21:34:48] Le script s'est lancé
+[2025-05-08 21:35:20] Solde actuel depuis Flask : 3290.95
+[2025-05-08 21:35:21] Solde précédent : 3000.00, Solde actuel : 3290.95, Variation : 290.95
+[2025-05-08 21:35:21] Mise à jour du solde réussi
+Robot redémarré (gain 290.95)
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.12293,"bid":1.12235,"comment":"Request executed","deal":3701684877,"order":3751683250,"price":1.12293,"request":[1,123456,0,"EURUSD",0.1,1.12293,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":3359307062,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-08 21:39:11] Le script s'est lancé
+[2025-05-08 21:39:14] Solde actuel depuis Flask : 3290.95
+[2025-05-08 21:39:14] Solde précédent : 3290.95, Solde actuel : 3290.95, Variation : 0
+[2025-05-08 21:39:15] Mise à jour du solde réussi
+Ordre envoyé : BUY - Réponse : {"result":{"ask":1.123,"bid":1.12242,"comment":"Request executed","deal":3701687036,"order":3751685374,"price":1.123,"request":[1,123456,0,"EURUSD",0.1,1.123,0.0,0.0,0.0,20,0,1,0,0,"PHP Trade",0,0],"request_id":3359307063,"retcode":10009,"retcode_external":0,"volume":0.1},"status":"success"}
+
+[2025-05-08 21:50:20] Le script s'est lancé
+[2025-05-08 21:50:22] Solde actuel depuis Flask : 3280.05
+[2025-05-08 21:59:36] Le script s'est lancé
+[2025-05-08 21:59:37] Solde actuel depuis Flask : 3280.05
+[2025-05-08 21:59:37] Solde précédent : 3290.95, Solde actuel : 3280.05, Variation globale : -10.9
+[2025-05-08 21:59:38] Mise à jour du solde réussi
+[2025-05-08 21:59:38] Erreur lors de la récupération des données depuis Flask (analyze-market)
+[2025-05-08 21:59:38] Aucune donnée d'analyse reçue ou signal manquant.
+[2025-05-08 22:10:36] Le script s'est lancé
+[2025-05-08 22:10:39] Solde actuel depuis Flask : 3280.05
+[2025-05-08 22:10:40] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 22:10:40] Mise à jour du solde réussi
+[2025-05-08 22:10:41] Erreur lors de la récupération des données depuis Flask (analyze-market)
+[2025-05-08 22:10:41] Aucune donnée d'analyse reçue ou signal manquant.
+[2025-05-08 22:22:01] Le script s'est lancé
+[2025-05-08 22:22:03] Solde actuel depuis Flask : 3280.05
+[2025-05-08 22:22:04] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 22:22:04] Mise à jour du solde réussi
+[2025-05-08 22:22:04] Erreur lors de la récupération des données depuis Flask (analyze-market)
+[2025-05-08 22:22:04] Aucune donnée d'analyse reçue ou signal manquant.
+[2025-05-08 22:54:42] Le script s'est lancé
+[2025-05-08 22:54:48] Solde actuel depuis Flask : 3280.05
+[2025-05-08 22:54:49] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 22:54:49] Mise à jour du solde réussi
+[2025-05-08 22:54:50] Erreur lors de la récupération des données depuis Flask (analyze-market)
+[2025-05-08 22:54:50] Aucune donnée d'analyse reçue ou signal manquant.
+[2025-05-08 23:01:53] Le script s'est lancé
+[2025-05-08 23:01:54] Solde actuel depuis Flask : 3280.05
+[2025-05-08 23:01:54] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 23:01:55] Mise à jour du solde réussi
+[2025-05-08 23:01:56] Signal d'analyse invalide : wait
+[2025-05-08 23:02:42] Le script s'est lancé
+[2025-05-08 23:02:42] Solde actuel depuis Flask : 3280.05
+[2025-05-08 23:02:43] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 23:02:43] Mise à jour du solde réussi
+[2025-05-08 23:02:43] Signal d'analyse invalide : wait
+[2025-05-08 23:09:38] Le script s'est lancé
+[2025-05-08 23:09:39] Solde actuel depuis Flask : 3280.05
+[2025-05-08 23:09:40] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 23:09:40] Mise à jour du solde réussi
+[2025-05-08 23:09:40] Signal d'analyse invalide : wait
+[2025-05-08 23:19:30] Le script s'est lancé
+[2025-05-08 23:19:31] Solde actuel depuis Flask : 3280.05
+[2025-05-08 23:19:31] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 23:19:32] Mise à jour du solde réussi
+[2025-05-08 23:19:32] Signal d'analyse invalide : wait
+[2025-05-08 23:23:23] Le script s'est lancé
+[2025-05-08 23:23:23] Solde actuel depuis Flask : 3280.05
+[2025-05-08 23:23:24] Solde précédent : 3280.05, Solde actuel : 3280.05, Variation globale : 0
+[2025-05-08 23:23:24] Mise à jour du solde réussi
+[2025-05-08 23:23:24] Signal d'analyse invalide : wait
+[2025-05-08 23:25:16] Le script s'est lancé
+[2025-05-08 23:25:17] Solde actuel depuis Flask : 3276.65
+[2025-05-08 23:25:18] Solde précédent : 3280.05, Solde actuel : 3276.65, Variation globale : -3.4000000000001
+[2025-05-08 23:25:18] Mise à jour du solde réussi
+[2025-05-08 23:25:18] Signal d'analyse invalide : wait
+[2025-05-10 17:54:47] Le script s'est lancé
+[2025-05-10 17:55:57] Le script s'est lancé
+[2025-05-10 17:56:58] Erreur lors de la récupération des données depuis Flask (get-balance)
+[2025-05-10 17:56:58] Solde actuel depuis Flask : 0
+[2025-05-10 17:56:59] Solde précédent : 3276.65, Solde actuel : 0, Variation globale : -3276.65
+[2025-05-10 17:56:59] Mise à jour du solde réussi
+[2025-05-10 17:56:59] Robot stoppé globalement (perte globale -3276.65)
+[2025-05-11 14:14:12] Le script s'est lancé
+[2025-05-11 14:14:21] Erreur lors de la récupération des données depuis Flask (get-balance)
+[2025-05-11 14:14:21] Solde actuel depuis Flask : 0
+[2025-05-11 14:14:21] Solde précédent : 0.00, Solde actuel : 0, Variation globale : 0
+[2025-05-11 14:14:22] Mise à jour du solde réussi
+[2025-05-11 14:21:31] Le script s'est lancé
+[2025-05-11 16:27:04] Le script s'est lancé
+[2025-05-11 16:27:08] Erreur lors de la récupération des données depuis Flask (get-balance)
+[2025-05-11 16:27:08] Solde actuel depuis Flask : 0
+[2025-05-11 16:27:08] Solde précédent : 0.00, Solde actuel : 0, Variation globale : 0
+[2025-05-11 16:27:08] Mise à jour du solde réussi
+[2025-05-14 12:01:10] Le script s'est lancé
+[2025-05-14 12:01:15] Erreur lors de la récupération des données depuis Flask (get-balance)
+[2025-05-14 12:01:15] Solde actuel depuis Flask : 0
+[2025-05-14 12:01:15] Solde précédent : 0.00, Solde actuel : 0, Variation globale : 0
+[2025-05-14 12:01:15] Mise à jour du solde réussi
+[2025-05-14 12:12:42] Le script s'est lancé
+[2025-05-14 12:13:49] Erreur lors de la récupération des données depuis Flask (get-balance)
+[2025-05-14 12:13:49] Solde actuel depuis Flask : 0
+[2025-05-14 12:13:51] Solde précédent : 0.00, Solde actuel : 0, Variation globale : 0
+[2025-05-14 12:13:51] Mise à jour du solde réussi
+[2025-05-14 12:16:57] Le script s'est lancé
+[2025-05-14 12:17:04] Solde actuel depuis Flask : 3274.65
+[2025-05-14 12:17:05] Solde précédent : 0.00, Solde actuel : 3274.65, Variation globale : 3274.65
+[2025-05-14 12:17:07] Mise à jour du solde réussi
+[2025-05-14 12:17:08] Robot redémarré globalement (gain global 3274.65)
+[2025-05-14 12:17:09] Signal d'analyse invalide : wait
+[2025-05-14 12:38:21] Le script s'est lancé
+[2025-05-14 12:38:23] Solde actuel depuis Flask : 3274.65
+[2025-05-14 12:38:23] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 12:38:23] Mise à jour du solde réussi
+[2025-05-14 12:38:24] Signal d'analyse invalide : wait
+[2025-05-14 12:38:52] Le script s'est lancé
+[2025-05-14 12:38:53] Solde actuel depuis Flask : 3274.65
+[2025-05-14 12:38:53] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 12:38:54] Mise à jour du solde réussi
+[2025-05-14 12:38:54] Signal d'analyse invalide : wait
+[2025-05-14 12:55:55] Le script s'est lancé
+[2025-05-14 12:55:57] Solde actuel depuis Flask : 3274.65
+[2025-05-14 12:55:58] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 12:55:58] Mise à jour du solde réussi
+[2025-05-14 12:55:59] Signal d'analyse invalide : wait
+[2025-05-14 13:59:18] Le script s'est lancé
+[2025-05-14 13:59:22] Solde actuel depuis Flask : 3274.65
+[2025-05-14 13:59:23] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 13:59:24] Mise à jour du solde réussi
+[2025-05-14 13:59:26] Signal d'analyse invalide : wait
+[2025-05-14 14:08:54] Le script s'est lancé
+[2025-05-14 14:09:31] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:09:32] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:09:32] Mise à jour du solde réussi
+[2025-05-14 14:09:33] Signal d'analyse invalide : wait
+[2025-05-14 14:14:15] Le script s'est lancé
+[2025-05-14 14:14:16] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:14:17] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:14:17] Mise à jour du solde réussi
+[2025-05-14 14:14:17] Signal d'analyse invalide : wait
+[2025-05-14 14:19:01] Le script s'est lancé
+[2025-05-14 14:19:02] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:19:02] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:19:04] Mise à jour du solde réussi
+[2025-05-14 14:19:04] Signal d'analyse invalide : wait
+[2025-05-14 14:26:42] Le script s'est lancé
+[2025-05-14 14:26:43] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:26:43] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:26:44] Mise à jour du solde réussi
+[2025-05-14 14:26:44] Signal d'analyse invalide : wait
+[2025-05-14 14:27:31] Le script s'est lancé
+[2025-05-14 14:27:32] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:27:32] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:27:32] Mise à jour du solde réussi
+[2025-05-14 14:27:33] Signal d'analyse invalide : wait
+[2025-05-14 14:30:22] Le script s'est lancé
+[2025-05-14 14:30:23] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:30:24] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:30:24] Mise à jour du solde réussi
+[2025-05-14 14:30:24] Signal d'analyse invalide : wait
+[2025-05-14 14:36:28] Le script s'est lancé
+[2025-05-14 14:36:30] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:36:30] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:36:30] Mise à jour du solde réussi
+[2025-05-14 14:36:30] Tentative d'ordre initial : buy
+[2025-05-14 14:36:30] Erreur lors de l'envoi de l'ordre buy
+[2025-05-14 14:47:57] Le script s'est lancé
+[2025-05-14 14:47:59] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:47:59] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:47:59] Mise à jour du solde réussi
+[2025-05-14 14:47:59] Tentative d'ordre initial : sell
+[2025-05-14 14:47:59] Erreur lors de l'envoi de l'ordre sell
+[2025-05-14 14:49:14] Le script s'est lancé
+[2025-05-14 14:49:14] Solde actuel depuis Flask : 3274.65
+[2025-05-14 14:49:15] Solde précédent : 3274.65, Solde actuel : 3274.65, Variation globale : 0
+[2025-05-14 14:49:15] Mise à jour du solde réussi
+[2025-05-14 14:49:15] Tentative d'ordre initial : buy
+[2025-05-14 14:49:15] Erreur lors de l'envoi de l'ordre buy
+[2025-05-14 15:25:35] Le script s'est lancé
+[2025-05-14 15:25:36] Solde actuel depuis Flask : 3273.62
+[2025-05-14 15:25:36] Solde précédent : 3274.65, Solde actuel : 3273.62, Variation globale : -1.0300000000002
+[2025-05-14 15:25:37] Mise à jour du solde réussi
+[2025-05-14 15:25:37] Tentative d'ordre initial : sell
+[2025-05-14 15:25:37] Ordre envoyé : sell - Paramètres : {"type":"sell","stop_loss":20,"take_profit":40} - Réponse : {
+  "result": {
+    "ask": 1.12031,
+    "bid": 1.12018,
+    "comment": "Request executed",
+    "deal": 3728742421,
+    "order": 3779369966,
+    "price": 1.12019,
+    "request": [
+      1,
+      123456,
+      0,
+      "EURUSD",
+      0.02,
+      1.12019,
+      0.0,
+      1.12039,
+      1.11979,
+      20,
+      1,
+      1,
+      0,
+      0,
+      "PHP Trade",
+      0,
+      0
+    ],
+    "request_id": 709789009,
+    "retcode": 10009,
+    "retcode_external": 0,
+    "volume": 0.02
+  },
+  "status": "success"
+}
+
+[2025-05-14 17:10:15] Le script s'est lancé
+[2025-05-14 17:10:17] Solde actuel depuis Flask : 3265.58
+[2025-05-14 17:10:17] Solde précédent : 3273.62, Solde actuel : 3265.58, Variation globale : -8.04
+[2025-05-14 17:10:17] Mise à jour du solde réussi
+[2025-05-14 17:10:17] Tentative d'ordre initial : buy
+[2025-05-14 17:10:18] Ordre envoyé : buy - Paramètres : {"type":"buy","stop_loss":20,"take_profit":40} - Réponse : {
+  "result": {
+    "ask": 1.11873,
+    "bid": 1.1186099999999999,
+    "comment": "Request executed",
+    "deal": 3729393372,
+    "order": 3780019525,
+    "price": 1.11873,
+    "request": [
+      1,
+      123456,
+      0,
+      "EURUSD",
+      0.02,
+      1.11873,
+      0.0,
+      1.11853,
+      1.11913,
+      20,
+      0,
+      1,
+      0,
+      0,
+      "PHP Trade",
+      0,
+      0
+    ],
+    "request_id": 709789023,
+    "retcode": 10009,
+    "retcode_external": 0,
+    "volume": 0.02
+  },
+  "status": "success"
+}
+
