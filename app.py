@@ -191,21 +191,32 @@ def init_mt5():
     global mt5_initialized, auto_trade_thread
     if mt5_initialized:
         return jsonify({'error': 'MT5 already initialized'}), 400
-    # login = request.json.get('login')   # Commenter cette ligne
-    login = 5036136381  # Définir le login en dur (UTILISEZ VOTRE VRAI LOGIN MT5)
+    
+    login = request.json.get('login')
     password = request.json.get('password')
     server = request.json.get('server')
+    
     if not login or not password or not server:
         return jsonify({'error': 'Missing login, password, or server'}), 400
+    
+    # Convertir explicitement le login en entier
+    try:
+        login = int(login)
+    except ValueError:
+        return jsonify({'error': 'Login must be a valid number'}), 400
+    
     # Initialiser MT5 avec les informations fournies
-    if not mt5.initialize(login=login, password=password, server=server):  # Ne pas convertir en int ici
+    if not mt5.initialize(login=login, password=password, server=server):
         error_message = mt5.last_error()
         return jsonify({"error": f"Connexion MT5 échouée: {error_message}"}), 500
+    
     mt5_initialized = True  # Marquer comme initialisé
+    
     # Démarrer le thread de trading automatique
     auto_trade_thread = threading.Thread(target=auto_trading_loop)
     auto_trade_thread.daemon = True
     auto_trade_thread.start()
+    
     return jsonify({'status': 'MT5 initialized and auto trading started'}), 200
 @app.route('/get-balance', methods=['GET'])
 def get_balance_route():
