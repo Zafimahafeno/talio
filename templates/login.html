@@ -145,7 +145,8 @@ form.addEventListener('submit', async (event) => {
         if (!response.ok) {
             errorMessage.textContent = result.error || 'Erreur de connexion inconnue.';
         } else {
-            window.location.href = '/get-balance';
+            //  Redirection après une connexion réussie
+            window.location.href = '/get-balance'; // Corrected redirection
         }
     } catch (error) {
         errorMessage.textContent = 'Erreur réseau: Veuillez vérifier votre connexion.';

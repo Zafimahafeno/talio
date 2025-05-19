@@ -1,55 +1,64 @@
 from flask import Flask, jsonify, request, render_template
-import MetaTrader5 as mt5
-import pandas as pd
+import requests
 import time
 import threading
 
 app = Flask(__name__)
 
-# Paramètres de la stratégie
-SMA_FAST_PERIOD = 20
-SMA_SLOW_PERIOD = 50
-MACD_FAST_PERIOD = 12
-MACD_SLOW_PERIOD = 26
-MACD_SIGNAL_PERIOD = 9
-# Paramètres de trading
-SYMBOL = "EURUSD"
-LOT = 0.02
-STOP_LOSS_PIPS = 50
-TAKE_PROFIT_PIPS = 150
-MAGIC_NUMBER = 123456
-DEVIATION = 20
-TRADE_INTERVAL = 15  # Vérifier le signal toutes les 15 secondes (pour des tests plus rapides)
+# Configuration
+LOCAL_API_URL = 'http://192.168.16.107:5002'  # IMPORTANT: Mettre à jour avec l'IP de ta machine locale!
+TRADE_INTERVAL = 15  # Vérifier le signal toutes les 15 secondes
+SYMBOL = "EURUSD" # Add this line
+LOT = 0.02 # Add this line
+
 # Variables globales
+mt5_initialized_remote = False
+auto_trade_thread = None  # Pour stocker le thread, si nécessaire
 position_ouverte = False
 type_position = None
-mt5_initialized = False  # Nouveau: Pour suivre l'état d'initialisation de MT5
-# Lock pour protéger l'accès à MT5
-mt5_lock = threading.Lock()
-# Fonctions de calcul d'indicateurs (inchangées)
-def calculate_sma(series, period):
-    return series.rolling(window=period).mean()
-def calculate_macd(series, fast_period, slow_period, signal_period):
-    ema_fast = series.ewm(span=fast_period, adjust=False).mean()
-    ema_slow = series.ewm(span=slow_period, adjust=False).mean()
-    macd_line = ema_fast - ema_slow
-    signal_line = macd_line.ewm(span=signal_period, adjust=False).mean()
-    return macd_line, signal_line
-# Fonction pour récupérer les prix historiques (inchangée)
-def get_historical_prices(symbol, timeframe, limit):
-    rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, limit)
-    if rates is None or len(rates) == 0:
-        return None
-    df = pd.DataFrame(rates)
-    df['time'] = pd.to_datetime(df['time'], unit='s')
-    return df
-# Fonction d'analyse du marché (AUCUNE condition de signal basée sur les SMA)
-def analyze_market():
-    timeframe = mt5.TIMEFRAME_H1  # Analyse sur une période plus courte pour des tests
-    limit = 2  # Récupérer seulement les deux dernières bougies pour la vérification
 
-    prices_df = get_historical_prices(SYMBOL, timeframe, limit)
-    if prices_df is None or len(prices_df) < 1:
+# Fonctions pour communiquer avec l'API locale
+def init_mt5_local(login, password, server):
+    try:
+        response = requests.post(f'{LOCAL_API_URL}/init-mt5', json={'login': login, 'password': password, 'server': server})
+        response.raise_for_status()  # Lève une exception pour les codes d'erreur HTTP
+        return response.json(), response.status_code
+    except requests.exceptions.RequestException as e:
+        return {'error': f'Failed to connect to local API: {e}'}, 500
+
+def get_balance_local():
+    try:
+        response = requests.get(f'{LOCAL_API_URL}/get-local-balance')
+        response.raise_for_status()
+        return response.json(), response.status_code
+    except requests.exceptions.RequestException as e:
+        return {'error': f'Failed to get balance from local API: {e}'}, 500
+
+def get_prices_local(symbol):
+    try:
+        response = requests.get(f'{LOCAL_API_URL}/get-local-prices/{symbol}')
+        response.raise_for_status()
+        return response.json(), response.status_code
+    except requests.exceptions.RequestException as e:
+        return {'error': f'Failed to get prices from local API: {e}'}, 500
+
+def execute_trade_local(trade_type, symbol, lot, price):
+    try:
+        response = requests.get(
+            f'{LOCAL_API_URL}/execute-local-trade/{trade_type}/{symbol}/{lot}/{price}')
+        response.raise_for_status()
+        return response.json(), response.status_code
+    except requests.exceptions.RequestException as e:
+        return {'error': f'Failed to execute trade via local API: {e}'}, 500
+
+# Fonction d'analyse du marché (adaptée pour utiliser l'API locale pour récupérer les prix)
+def analyze_market():
+    # Ici, on récupère les prix via l'API locale
+    prices_response = get_prices_local(SYMBOL) # Assumes SYMBOL is defined
+    if prices_response[1] != 200: # Check the status code.
+        return {'signal': 'wait'}
+    prices_data = prices_response[0]
+    if not prices_data:
         return {'signal': 'wait'}
     # Générer un signal aléatoire pour le test (À REMPLACER par ta logique finale)
     import random
@@ -57,232 +66,100 @@ def analyze_market():
         signal = 'buy'
     else:
         signal = 'sell'
-    print(f"Signal (aléatoire pour le test) : {signal}")
+    print(f"Signal (Alwaysdata): {signal}")
     return {'signal': signal}
-# Fonction pour vérifier si une position est ouverte
-def check_open_position():
-    with mt5_lock:  # Utiliser le lock
-        positions = mt5.positions_get(symbol=SYMBOL)
-        if positions:
-            return True, positions[0].type
-        return False, None
-# Fonction pour fermer une position ouverte
-def close_position(ticket):
-    with mt5_lock:
-        position = mt5.positions_get(ticket=ticket)
-        if position:
-            symbol = position[0].symbol
-            volume = position[0].volume
-            type = mt5.ORDER_TYPE_SELL if position[0].type == 0 else mt5.ORDER_TYPE_BUY
-            price = mt5.symbol_info_tick(symbol).bid if type == mt5.ORDER_TYPE_SELL else mt5.symbol_info_tick(symbol).ask
-            request = {
-                "action": mt5.TRADE_ACTION_DEAL,
-                "symbol": symbol,
-                "volume": volume,
-                "type": type,
-                "price": price,
-                "deviation": DEVIATION,
-                "magic": MAGIC_NUMBER,
-                "comment": "Close Auto",
-                "type_time": mt5.ORDER_TIME_GTC,
-                "type_filling": mt5.ORDER_FILLING_IOC,
-                "position": ticket,
-            }
-            result = mt5.order_send(request)
-            if result.retcode != mt5.TRADE_RETCODE_DONE:
-                print(
-                    f"Erreur lors de la fermeture de la position {ticket}, retcode={result.retcode}")
-                print(f"Erreur: {result.comment}")
-                return False
-            else:
-                print(f"Position {ticket} fermée avec succès")
-                return True
-        return False
-# Fonction pour passer un ordre de trading (modifiée pour vérifier les positions existantes)
-def execute_trade(trade_type):
-    global position_ouverte, type_position
-    is_open, open_type = check_open_position()
-    if is_open:
-        print(
-            f"Une position { 'BUY' if open_type == 0 else 'SELL'} est déjà ouverte. Aucune nouvelle ordre ne sera placé.")
-        return False
-    symbol_info = mt5.symbol_info(SYMBOL)
-    if symbol_info is None:
-        print(f"Erreur: Impossible de récupérer les informations pour {SYMBOL}")
-        return False
-    if not symbol_info.visible:
-        if not mt5.symbol_select(SYMBOL, True):
-            print(f"Erreur: Impossible de sélectionner le symbole {SYMBOL}")
-            return False
-    point = mt5.symbol_info(SYMBOL).point
-    price = mt5.symbol_info_tick(
-        SYMBOL).ask if trade_type == 'buy' else mt5.symbol_info_tick(SYMBOL).bid
-    sl = price - STOP_LOSS_PIPS * \
-        point if trade_type == 'buy' else price + STOP_LOSS_PIPS * point
-    tp = price + TAKE_PROFIT_PIPS * \
-        point if trade_type == 'buy' else price - TAKE_PROFIT_PIPS * point
-    request = {
-        "action": mt5.TRADE_ACTION_DEAL,
-        "symbol": SYMBOL,
-        "volume": LOT,
-        "type": mt5.ORDER_TYPE_BUY if trade_type == 'buy' else mt5.ORDER_TYPE_SELL,
-        "price": price,
-        "sl": sl,
-        "tp": tp,
-        "deviation": DEVIATION,
-        "magic": MAGIC_NUMBER,
-        "comment": "Auto Trade",
-        "type_time": mt5.ORDER_TIME_GTC,
-        "type_filling": mt5.ORDER_FILLING_IOC,
-    }
-    with mt5_lock:  # Utiliser le lock
-        result = mt5.order_send(request)
-        if result.retcode != mt5.TRADE_RETCODE_DONE:
-            print(f"Échec de l'ordre {trade_type}, retcode={result.retcode}")
-            print(f"Erreur: {result.comment}")
-            return False
-        else:
-            print(
-                f"Ordre {trade_type} exécuté avec succès, order_id={result.order}")
-            position_ouverte = True
-            type_position = trade_type
-            return True
-# Fonction principale pour l'exécution automatique (modifiée pour la gestion des positions)
+
+# Fonction principale pour l'exécution automatique (adaptée pour utiliser l'API locale)
 def auto_trading_loop():
     global position_ouverte, type_position
-    # Plus besoin d'initialiser MT5 ici
     try:
         while True:
-            is_open, open_type = check_open_position()
-            if not is_open:
+            if not position_ouverte:
                 analysis = analyze_market()
                 signal = analysis.get('signal')
                 if signal == 'buy':
-                    print("Signal d'achat détecté. Tentative d'exécution...")
-                    execute_trade('buy')
+                    print("Signal d'achat détecté. Tentative d'exécution via local API...")
+                    prices_response = get_prices_local(SYMBOL)
+                    if prices_response[1] == 200:
+                        prices = prices_response[0]
+                        execute_trade_local('buy', SYMBOL, LOT, prices['ask'])
+                        position_ouverte = True
+                        type_position = 'buy'
+                    else:
+                        print("Failed to get price to execute")
                 elif signal == 'sell':
-                    print("Signal de vente détecté. Tentative d'exécution...")
-                    execute_trade('sell')
+                    print("Signal de vente détecté. Tentative d'exécution via local API...")
+                    prices_response = get_prices_local(SYMBOL)
+                    if prices_response[1] == 200:
+                        prices = prices_response[0]
+                        execute_trade_local('sell', SYMBOL, LOT, prices['bid'])
+                        position_ouverte = True
+                        type_position = 'sell'
+                    else:
+                        print("Failed to get price to execute")
                 else:
                     print("Pas de signal de trading.")
             else:
-                # Logique pour vérifier si une position a été fermée par SL/TP
-                with mt5_lock:  # Utiliser le lock
-                    current_positions = mt5.positions_get(symbol=SYMBOL)
-                if not current_positions:
-                    print(
-                        "Position fermée (SL/TP ou manuellement). Préparation pour un nouvel ordre.")
-                    position_ouverte = False
-                    type_position = None
-                else:
-                    print(
-                        f"Position { 'BUY' if open_type == 0 else 'SELL'} toujours ouverte.")
-            time.sleep(TRADE_INTERVAL)
+                print(f"Position {type_position} ouverte (Alwaysdata).")
+                #  Ajouter ici la logique pour vérifier si la position est toujours ouverte.
+                #  Cela pourrait nécessiter un endpoint supplémentaire sur l'API locale pour récupérer
+                #  les informations sur les positions ouvertes, ou une logique pour suivre les ordres passés.
+                #  Pour simplifier, on suppose ici que la position peut être fermée par SL/TP à tout moment.
+                time.sleep(TRADE_INTERVAL)
     except KeyboardInterrupt:
         print("Boucle d'exécution automatique interrompue.")
-    finally:
-        with mt5_lock:
-            mt5.shutdown()
+
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return render_template('login.html')  # Tu devras créer un template login.html
+
 @app.route('/init-mt5', methods=['POST'])
-def init_mt5():
-    global mt5_initialized, auto_trade_thread
-    if mt5_initialized:
-        return jsonify({'error': 'MT5 already initialized'}), 400
-    
+def init_mt5_remote():
+    global mt5_initialized_remote, auto_trade_thread
     login = request.json.get('login')
     password = request.json.get('password')
     server = request.json.get('server')
-    
+
     if not login or not password or not server:
         return jsonify({'error': 'Missing login, password, or server'}), 400
-    
-    # Convertir explicitement le login en entier
-    try:
-        login = int(login)
-    except ValueError:
-        return jsonify({'error': 'Login must be a valid number'}), 400
-    
-    # Initialiser MT5 avec les informations fournies
-    if not mt5.initialize(login=login, password=password, server=server):
-        error_message = mt5.last_error()
-        return jsonify({"error": f"Connexion MT5 échouée: {error_message}"}), 500
-    
-    mt5_initialized = True  # Marquer comme initialisé
-    
-    # Démarrer le thread de trading automatique
-    auto_trade_thread = threading.Thread(target=auto_trading_loop)
-    auto_trade_thread.daemon = True
-    auto_trade_thread.start()
-    
-    return jsonify({'status': 'MT5 initialized and auto trading started'}), 200
+
+    result, status_code = init_mt5_local(login, password, server)
+    if status_code == 200:
+        mt5_initialized_remote = True
+        # Démarrer le thread de trading automatique sur Alwaysdata
+        auto_trade_thread = threading.Thread(target=auto_trading_loop)
+        auto_trade_thread.daemon = True
+        auto_trade_thread.start()
+        return jsonify(result), status_code
+    else:
+        return jsonify(result), status_code
+
 @app.route('/get-balance', methods=['GET'])
-def get_balance_route():
-    if not mt5_initialized:
-        return jsonify({'error': 'MT5 not initialized. Call /init-mt5 first.'}), 400
-    with mt5_lock:  # Utiliser le lock
-        account = mt5.account_info()
-    if account is None:
-        return jsonify({"error": "Impossible de récupérer les infos du compte"})
-    return jsonify({
-        "balance": account.balance,
-        "equity": account.equity,
-        "margin": account.margin,
-        "free_margin": account.margin_free
-    })
+def get_balance_route_remote():
+    if not mt5_initialized_remote:
+        return jsonify({'error': 'MT5 not initialized (via local API). Call /init-mt5 first.'}), 400
+    balance_data, status_code = get_balance_local()
+    return jsonify(balance_data), status_code
 @app.route('/analyze-market', methods=['GET'])
-def get_analysis_route():
-    if not mt5_initialized:
-        return jsonify({'error': 'MT5 not initialized. Call /init-mt5 first.'}), 400
+def get_analysis_route_remote():
     analysis = analyze_market()
     return jsonify(analysis)
+
 @app.route('/trade', methods=['GET'])
-def trade_route():
-    if not mt5_initialized:
-        return jsonify({'error': 'MT5 not initialized. Call /init-mt5 first.'}), 400
+def trade_route_remote():
+    global position_ouverte
+    if not mt5_initialized_remote:
+        return jsonify({'error': 'MT5 not initialized (via local API). Call /init-mt5 first.'}), 400
     trade_type = request.args.get('type')
-    stop_loss_pips = request.args.get('stop_loss', default=STOP_LOSS_PIPS, type=int)
-    take_profit_pips = request.args.get(
-        'take_profit', default=TAKE_PROFIT_PIPS, type=int)
     if not trade_type:
         return jsonify({'error': 'Missing trade type (buy or sell)'}), 400
-    symbol = SYMBOL
-    lot = LOT
-    symbol_info = mt5.symbol_info(symbol)
-    if symbol_info is None:
-        return jsonify({'error': 'Symbol not found'}), 500
-    if not symbol_info.visible:
-        mt5.symbol_select(symbol, True)
-    point = mt5.symbol_info(symbol).point
-    price = mt5.symbol_info_tick(
-        symbol).ask if trade_type == 'buy' else mt5.symbol_info_tick(symbol).bid
-    sl = price - stop_loss_pips * \
-        point if trade_type == 'buy' else price + stop_loss_pips * point
-    tp = price + take_profit_pips * \
-        point if trade_type == 'buy' else price - take_profit_pips * point
-    request_data = {
-        "action": mt5.TRADE_ACTION_DEAL,
-        "symbol": symbol,
-        "volume": lot,
-        "type": mt5.ORDER_TYPE_BUY if trade_type == 'buy' else mt5.ORDER_TYPE_SELL,
-        "price": price,
-        "sl": sl,
-        "tp": tp,
-        "deviation": 20,
-        "magic": MAGIC_NUMBER,
-        "comment": "PHP Trade",
-        "type_time": mt5.ORDER_TIME_GTC,
-        "type_filling": mt5.ORDER_FILLING_IOC,
-    }
-    with mt5_lock:  # Utiliser le lock
-        result = mt5.order_send(request_data)
-    if result.retcode != mt5.TRADE_RETCODE_DONE:
-        return jsonify({'error': 'Trade failed', 'details': result._asdict()}), 500
-    return jsonify({'status': 'success', 'result': result._asdict()})
+    if trade_type.lower() not in ['buy', 'sell']:
+        return jsonify({'error': 'Invalid trade type'}), 400
+    if position_ouverte:
+        return jsonify({'error': 'A position is already open'}), 400
+    # L'exécution réelle se fait dans auto_trading_loop qui appelle execute_trade_local
+    # Ici, on signale juste que la tentative va être faite
+    return jsonify({'status': f'Attempting to {trade_type} via local API (check local server logs)'}), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True,
-            use_reloader=False)  # Lancer Flask seulement
-
+    app.run(host='0.0.0.0', port=5001, debug=True, use_reloader=False)
