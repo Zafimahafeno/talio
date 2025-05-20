@@ -6,7 +6,7 @@ import threading
 app = Flask(__name__)
 
 # Configuration
-LOCAL_API_URL = 'http://192.168.16.107:5002'  # IMPORTANT: Mettre à jour avec l'IP de ta machine locale!
+LOCAL_API_URL = 'http://127.0.0.1:5002'  # IMPORTANT: Mettre à jour avec l'IP de ta machine locale!
 TRADE_INTERVAL = 15  # Vérifier le signal toutes les 15 secondes
 SYMBOL = "EURUSD" # Add this line
 LOT = 0.02 # Add this line
